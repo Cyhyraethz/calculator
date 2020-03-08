@@ -1,0 +1,20 @@
+body {
+  background: rgb(24, 26, 27);
+}
+
+.night {
+  color: rgb(24, 26, 27);
+}
+
+.btn {
+  border: 1px solid black;
+}
+
+.invis {
+  visibility: hidden;
+}
+
+.container {
+  max-width: 400px;
+  max-height: 400px;
+}
