@@ -1,5 +1,6 @@
 body {
   background: rgb(24, 26, 27);
+  font-size: 14px;
 }
 
 .night {
@@ -17,4 +18,8 @@ body {
 .container {
   max-width: 400px;
   max-height: 400px;
+}
+
+#total {
+  font-size: 16px;
 }

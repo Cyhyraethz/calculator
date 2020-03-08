@@ -1,137 +1,182 @@
-// Warning: Executing Javascript from a string is an enormous security risk. It is far too easy for a bad actor to run arbitrary code when eval() is used. Never use eval()!
-
 // Declare variables
-let history = document.getElementById('history');
-let total = document.getElementById('total');
-let num1;
-let num2;
-let operator;
+const history = document.getElementById('history');
+const total = document.getElementById('total');
 
 // Declare basic functions
 const add = (num1, num2) => {
-  return num1 + num2;
+  return parseInt(num1) + parseInt(num2);
 };
 const subtract = (num1, num2) => {
-  return num1 - num2;
+  return parseInt(num1) - parseInt(num2);
 };
 const multiply = (num1, num2) => {
-  return num1 * num2;
+  return parseInt(num1) * parseInt(num2);
 };
 const divide = (num1, num2) => {
-  return num1 / num2;
+  return parseInt(num1) / parseInt(num2);
 };
 
-/* // Test basic functions
-console.log('2 + 2 = ' + add(2, 2));
-console.log('2 - 2 = ' + subtract(2, 2));
-console.log('2 * 2 = ' + multiply(2, 2));
-console.log('2 / 2 = ' + divide(2, 2)); */
-
 // Declare complex functions
-const operate = (num1, operator, num2) => {
-  if (operator === '+') {
+const operate = (operator, num1, num2) => {
+  if (operator[0] === '+') {
     return add(num1, num2);
-  } else if (operator === '-') {
+  } else if (operator[0] === '-') {
     return subtract(num1, num2);
-  } else if (operator === '*') {
+  } else if (operator[0] === '*') {
     return multiply(num1, num2);
-  } else if (operator === '/') {
+  } else if (operator[0] === '/') {
     return divide(num1, num2);
   } else {
-    alert('Please enter a valid operator. Valid operators include: + - * /');
+    // alert('Please enter a valid operator. Valid operators include: + - * /');
   }
 };
 const equation = () => {
-  console.log('Testing');
+  let operator;
+  let num1;
+  let num2;
+  let newTotal;
+  let oldTotal = total.innerHTML;
+  let splitTotal = total.innerHTML.split(' ');
+  while (splitTotal.length > 1) {
+    if (splitTotal.join(' ').search(/[*/]/) > -1) {
+      let index = splitTotal.join('').indexOf(/[*/]/);
+      num2 = splitTotal.splice(index, 1);
+      operator = splitTotal.splice(index, 1);
+      num1 = splitTotal.splice(index, 1, 'placeholder');
+      newTotal = operate(operator, num1, num2);
+      splitTotal.splice(
+        splitTotal.indexOf('placeholder'),
+        1,
+        newTotal.toString()
+      );
+    } else {
+      num1 = splitTotal.splice(0, 1);
+      operator = splitTotal.splice(0, 1);
+      num2 = splitTotal.splice(0, 1);
+      newTotal = operate(operator, num1, num2);
+      splitTotal.unshift(newTotal);
+    }
+  }
+  let joinedTotal = splitTotal.join('');
+  let recent = document.createElement('p');
+  recent.innerHTML = oldTotal + ' = ' + joinedTotal;
+  if (history.firstChild) {
+    history.insertBefore(recent, history.firstChild);
+  } else {
+    history.appendChild(recent);
+  }
+  total.innerHTML = joinedTotal;
 };
-
-/* // Test complex functions
-console.log('2 + 2 = ' + operate('+', 2, 2));
-console.log('2 - 2 = ' + operate('-', 2, 2));
-console.log('2 * 2 = ' + operate('*', 2, 2));
-console.log('2 / 2 = ' + operate('/', 2, 2)); */
 
 // Declare number functions
 const zero = () => {
-  if (total.innerHTML[0] !== '0' || total.innerHTML.indexOf('.') > 0) {
+  if (
+    total.innerHTML[0] !== '0' ||
+    total.innerHTML.indexOf('.') > 0 ||
+    total.innerHTML.indexOf(' ') > 0
+  ) {
     total.innerHTML += '0';
   }
 };
 const one = () => {
-  if (total.innerHTML[0] === '0' && total.innerHTML.indexOf('.') < 0) {
+  if (
+    total.innerHTML[0] === '0' &&
+    total.innerHTML.indexOf('.') < 0 &&
+    total.innerHTML.indexOf(' ') < 0
+  ) {
     total.innerHTML = '1';
   } else {
     total.innerHTML += '1';
   }
 };
 const two = () => {
-  if (total.innerHTML[0] === '0' && total.innerHTML.indexOf('.') < 0) {
+  if (
+    total.innerHTML[0] === '0' &&
+    total.innerHTML.indexOf('.') < 0 &&
+    total.innerHTML.indexOf(' ') < 0
+  ) {
     total.innerHTML = '2';
   } else {
     total.innerHTML += '2';
   }
 };
 const three = () => {
-  if (total.innerHTML[0] === '0' && total.innerHTML.indexOf('.') < 0) {
+  if (
+    total.innerHTML[0] === '0' &&
+    total.innerHTML.indexOf('.') < 0 &&
+    total.innerHTML.indexOf(' ') < 0
+  ) {
     total.innerHTML = '3';
   } else {
     total.innerHTML += '3';
   }
 };
 const four = () => {
-  if (total.innerHTML[0] === '0' && total.innerHTML.indexOf('.') < 0) {
+  if (
+    total.innerHTML[0] === '0' &&
+    total.innerHTML.indexOf('.') < 0 &&
+    total.innerHTML.indexOf(' ') < 0
+  ) {
     total.innerHTML = '4';
   } else {
     total.innerHTML += '4';
   }
 };
 const five = () => {
-  if (total.innerHTML[0] === '0' && total.innerHTML.indexOf('.') < 0) {
+  if (
+    total.innerHTML[0] === '0' &&
+    total.innerHTML.indexOf('.') < 0 &&
+    total.innerHTML.indexOf(' ') < 0
+  ) {
     total.innerHTML = '5';
   } else {
     total.innerHTML += '5';
   }
 };
 const six = () => {
-  if (total.innerHTML[0] === '0' && total.innerHTML.indexOf('.') < 0) {
+  if (
+    total.innerHTML[0] === '0' &&
+    total.innerHTML.indexOf('.') < 0 &&
+    total.innerHTML.indexOf(' ') < 0
+  ) {
     total.innerHTML = '6';
   } else {
     total.innerHTML += '6';
   }
 };
 const seven = () => {
-  if (total.innerHTML[0] === '0' && total.innerHTML.indexOf('.') < 0) {
+  if (
+    total.innerHTML[0] === '0' &&
+    total.innerHTML.indexOf('.') < 0 &&
+    total.innerHTML.indexOf(' ') < 0
+  ) {
     total.innerHTML = '7';
   } else {
     total.innerHTML += '7';
   }
 };
 const eight = () => {
-  if (total.innerHTML[0] === '0' && total.innerHTML.indexOf('.') < 0) {
+  if (
+    total.innerHTML[0] === '0' &&
+    total.innerHTML.indexOf('.') < 0 &&
+    total.innerHTML.indexOf(' ') < 0
+  ) {
     total.innerHTML = '8';
   } else {
     total.innerHTML += '8';
   }
 };
 const nine = () => {
-  if (total.innerHTML[0] === '0' && total.innerHTML.indexOf('.') < 0) {
+  if (
+    total.innerHTML[0] === '0' &&
+    total.innerHTML.indexOf('.') < 0 &&
+    total.innerHTML.indexOf(' ') < 0
+  ) {
     total.innerHTML = '9';
   } else {
     total.innerHTML += '9';
   }
 };
-
-/* // Test number functions
-console.log('0 = ' + zero());
-console.log('1 = ' + one());
-console.log('2 = ' + two());
-console.log('3 = ' + three());
-console.log('4 = ' + four());
-console.log('5 = ' + five());
-console.log('6 = ' + six());
-console.log('7 = ' + seven());
-console.log('8 = ' + eight());
-console.log('9 = ' + nine()); */
 
 //Declare symbol functions
 const decimal = () => {
@@ -165,6 +210,10 @@ const division = () => {
 };
 
 // Declare top row functions
+const clearAll = () => {
+  total.innerHTML = '';
+  history.innerHTML = '';
+};
 const clearTotal = () => {
   total.innerHTML = '';
 };
