@@ -1,5 +1,5 @@
-// To do: round total to a limited number of decimal places
 // To do: remove insignificant trailing zeros from total
+// To do: add some keyboard functionality calculator
 
 const history = document.getElementById('history');
 const total = document.getElementById('total');
@@ -31,7 +31,7 @@ const equation = () => {
       splitTotal.unshift(newTotal);
     }
   }
-  let joinedTotal = splitTotal.join('');
+  let joinedTotal = parseFloat(splitTotal.join('')).toFixed(5);
   let recent = document.createElement('p');
   recent.innerHTML = oldTotal + ' = ' + joinedTotal;
   if (history.firstChild) {
