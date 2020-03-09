@@ -1,6 +1,5 @@
 // To do: round total to a limited number of decimal places
-// To do: fix Materialize for the equal and plus buttons
-// To do: remove all the insignificant trailing zeros
+// To do: remove insignificant trailing zeros from total
 
 const history = document.getElementById('history');
 const total = document.getElementById('total');

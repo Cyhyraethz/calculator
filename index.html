@@ -17,60 +17,131 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="btn invis col s12"></div>
-        <div class="btn invis col s2"></div>
-        <div class="btn grey darken-4 col s4" onclick="clearAll()">
-          Clear All
+        <!-- (empty space) -->
+        <div class="first-row">
+          <div class="btn invis col s12"></div>
         </div>
-        <div class="btn grey darken-4 col s4" onclick="backspaceTotal()">
-          <i class="material-icons">arrow_back</i>
+
+        <!-- (clear all, backspace) -->
+        <div class="second-row">
+          <div class="btn invis col s2"></div>
+          <div class="btn grey darken-4 col s4" onclick="clearAll()">
+            <p class="vertical">Clear All</p>
+          </div>
+          <div class="btn grey darken-4 col s4" onclick="backspaceTotal()">
+            <p class="vertical"><i class="material-icons">arrow_back</i></p>
+          </div>
+          <div class="btn invis col s2"></div>
         </div>
-        <div class="btn invis col s2"></div>
-        <div class="btn invis col s2"></div>
-        <div class="btn grey darken-4 col s2" onclick="clearTotal()">C</div>
-        <div class="btn grey darken-4 col s2" onclick="symbol('/')">/</div>
-        <div class="btn grey darken-4 col s2" onclick="symbol('*')">*</div>
-        <div class="btn grey darken-4 col s2" onclick="symbol('-')">-</div>
-        <div class="btn invis col s2"></div>
-        <div class="btn invis col s2"></div>
-        <div class="btn grey darken-4 col s2" onclick="num(7)">7</div>
-        <div class="btn grey darken-4 col s2" onclick="num(8)">8</div>
-        <div class="btn grey darken-4 col s2" onclick="num(9)">9</div>
-        <div class="btn grey darken-4 col s2" onclick="symbol('+')">+</div>
-        <div class="btn invis col s2"></div>
-        <div class="btn invis col s2"></div>
-        <div class="btn grey darken-4 col s2" onclick="num(4)">4</div>
-        <div class="btn grey darken-4 col s2" onclick="num(5)">5</div>
-        <div class="btn grey darken-4 col s2" onclick="num(6)">6</div>
-        <div class="btn grey darken-4 col s2" onclick="symbol('+')">+</div>
-        <div class="btn invis col s2"></div>
-        <div class="btn invis col s2"></div>
-        <div class="btn grey darken-4 col s2" onclick="num(1)">1</div>
-        <div class="btn grey darken-4 col s2" onclick="num(2)">2</div>
-        <div class="btn grey darken-4 col s2" onclick="num(3)">3</div>
-        <div class="btn grey darken-4 col s2" onclick="equation()">=</div>
-        <div class="btn invis col s2"></div>
-        <div class="btn invis col s2"></div>
-        <div class="btn grey darken-4 col s4" onclick="num(0)">0</div>
-        <div class="btn grey darken-4 col s2" onclick="decimal()">.</div>
-        <div class="btn grey darken-4 col s2" onclick="equation()">=</div>
-        <div class="btn invis col s2"></div>
+
+        <!-- (C, /, *, -) -->
+        <div class="third-row">
+          <div class="btn invis col s2"></div>
+          <div class="btn grey darken-4 col s2" onclick="clearTotal()">
+            <p class="vertical">C</p>
+          </div>
+          <div class="btn grey darken-4 col s2" onclick="symbol('/')">
+            <p class="vertical">/</p>
+          </div>
+          <div class="btn grey darken-4 col s2" onclick="symbol('*')">
+            <p style="margin-top: 9px">*</p>
+          </div>
+          <div class="btn grey darken-4 col s2" onclick="symbol('-')">
+            <p class="vertical">-</p>
+          </div>
+          <div class="btn invis col s2"></div>
+        </div>
+
+        <!-- (7, 8, 9, +, 4, 5, 6) -->
+        <div class="fourth-row fifth-row">
+          <div class="tall btn invis col s2"></div>
+          <div class="tall col s2">
+            <div class="wide btn grey darken-4" onclick="num(7)">
+              <p class="vertical">7</p>
+            </div>
+            <div class="wide bottom btn grey darken-4" onclick="num(4)">
+              <p class="vertical">4</p>
+            </div>
+          </div>
+          <div class="tall col s2">
+            <div class="wide btn grey darken-4" onclick="num(8)">
+              <p class="vertical">8</p>
+            </div>
+            <div class="wide bottom btn grey darken-4" onclick="num(5)">
+              <p class="vertical">5</p>
+            </div>
+          </div>
+          <div class="tall col s2">
+            <div class="wide btn grey darken-4" onclick="num(9)">
+              <p class="vertical">9</p>
+            </div>
+            <div class="wide bottom btn grey darken-4" onclick="num(6)">
+              <p class="vertical">6</p>
+            </div>
+          </div>
+          <div class="tall btn grey darken-4 col s2" onclick="symbol('+')">
+            <p style="margin-top: 30px;">+</p>
+          </div>
+          <div class="tall btn invis col s2"></div>
+        </div>
+
+        <!-- (1, 2, 3, =, 0, .) -->
+        <div class="sixth-row seventh-row">
+          <div class="tall btn invis col s2"></div>
+          <div class="tall col s2">
+            <div class="wide btn grey darken-4" onclick="num(1)">
+              <p class="vertical">1</p>
+            </div>
+            <div
+              class="wide bottom btn grey darken-4"
+              style="width: 100px;"
+              onclick="num(0)"
+            >
+              <p class="vertical">0</p>
+            </div>
+          </div>
+          <div class="btn grey darken-4 col s2" onclick="num(2)">
+            <p class="vertical">2</p>
+          </div>
+          <div class="tall col s2">
+            <div class="wide btn grey darken-4" onclick="num(3)">
+              <p class="vertical">3</p>
+            </div>
+            <div class="wide bottom btn grey darken-4" onclick="decimal()">
+              <p style="margin-top: 3px">.</p>
+            </div>
+          </div>
+          <div class="tall btn grey darken-4 col s2" onclick="equation()">
+            <p style="margin-top: 30px;">=</p>
+          </div>
+          <div class="tall btn invis col s2"></div>
+        </div>
+
+        <!-- (empty space) -->
+        <div class="eigth-row">
+          <div class="btn invis col s12"></div>
+        </div>
+
+        <!-- (total) -->
+        <div class="nineth-row">
+          <div class="btn invis col s2"></div>
+          <div class="white-text col s8"><b id="total"></b></div>
+          <div class="btn invis col s2"></div>
+        </div>
+
+        <!-- (empty space) -->
+        <div class="tenth-row">
+          <div class="btn invis col s12"></div>
+        </div>
+
+        <!-- (history) -->
+        <div class="eleventh-row">
+          <div class="btn invis col s2"></div>
+          <div class="white-text col s8" id="history"></div>
+          <div class="btn invis col s2"></div>
+        </div>
       </div>
     </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="btn invis col s12"></div>
-        <div class="btn invis col s2"></div>
-        <div class="white-text col s8"><b id="total"></b></div>
-        <div class="btn invis col s2"></div>
-        <div class="btn invis col s12"></div>
-        <div class="btn invis col s2"></div>
-        <div class="white-text col s8" id="history"></div>
-        <div class="btn invis col s2"></div>
-      </div>
-    </div>
-
     <script src="script.js"></script>
   </body>
 </html>
