@@ -1,4 +1,6 @@
 // To do: round total to a limited number of decimal places
+// To do: fix Materialize for the equal and plus buttons
+// To do: remove all the insignificant trailing zeros
 
 const history = document.getElementById('history');
 const total = document.getElementById('total');
@@ -40,6 +42,7 @@ const equation = () => {
   }
   total.innerHTML = joinedTotal;
 };
+
 const operate = (operator, num1, num2) => {
   if (operator[0] === '+') {
     return parseFloat(num1) + parseFloat(num2);
@@ -51,21 +54,21 @@ const operate = (operator, num1, num2) => {
     return parseFloat(num1) / parseFloat(num2);
   }
 };
+
 const num = num => {
-  let currentNum = total.innerHTML.split(' ')[
-    total.innerHTML.split(' ').length - 1
-  ];
+  let splitTotal = total.innerHTML.split(' ');
   if (
-    currentNum[0] === '0' &&
-    currentNum.indexOf('.') < 0 &&
-    currentNum.indexOf(' ') < 0
+    splitTotal[splitTotal.length - 1][0] === '0' &&
+    splitTotal[splitTotal.length - 1].indexOf('.') < 0 &&
+    splitTotal[splitTotal.length - 1].indexOf(' ') < 0
   ) {
-    currentNum = num;
+    splitTotal[splitTotal.length - 1] = num;
     total.innerHTML = splitTotal.join(' ');
   } else {
     total.innerHTML += num;
   }
 };
+
 const symbol = symbol => {
   let currentNum = total.innerHTML.split(' ')[
     total.innerHTML.split(' ').length - 1
@@ -77,6 +80,7 @@ const symbol = symbol => {
     total.innerHTML += ` ${symbol} `;
   }
 };
+
 const decimal = () => {
   let currentNum = total.innerHTML.split(' ')[
     total.innerHTML.split(' ').length - 1
@@ -89,13 +93,16 @@ const decimal = () => {
     }
   }
 };
+
 const clearAll = () => {
   total.innerHTML = '';
   history.innerHTML = '';
 };
+
 const clearTotal = () => {
   total.innerHTML = '';
 };
+
 const backspaceTotal = () => {
   total.innerHTML = total.innerHTML.substring(0, total.innerHTML.length - 1);
 };
