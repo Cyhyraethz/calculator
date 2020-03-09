@@ -1,35 +1,8 @@
-// Declare variables
+// To do: round total to a limited number of decimal places
+
 const history = document.getElementById('history');
 const total = document.getElementById('total');
 
-// Declare basic functions
-const add = (num1, num2) => {
-  return parseInt(num1) + parseInt(num2);
-};
-const subtract = (num1, num2) => {
-  return parseInt(num1) - parseInt(num2);
-};
-const multiply = (num1, num2) => {
-  return parseInt(num1) * parseInt(num2);
-};
-const divide = (num1, num2) => {
-  return parseInt(num1) / parseInt(num2);
-};
-
-// Declare complex functions
-const operate = (operator, num1, num2) => {
-  if (operator[0] === '+') {
-    return add(num1, num2);
-  } else if (operator[0] === '-') {
-    return subtract(num1, num2);
-  } else if (operator[0] === '*') {
-    return multiply(num1, num2);
-  } else if (operator[0] === '/') {
-    return divide(num1, num2);
-  } else {
-    // alert('Please enter a valid operator. Valid operators include: + - * /');
-  }
-};
 const equation = () => {
   let operator;
   let num1;
@@ -67,149 +40,55 @@ const equation = () => {
   }
   total.innerHTML = joinedTotal;
 };
-
-// Declare number functions
-const zero = () => {
-  if (
-    total.innerHTML[0] !== '0' ||
-    total.innerHTML.indexOf('.') > 0 ||
-    total.innerHTML.indexOf(' ') > 0
-  ) {
-    total.innerHTML += '0';
+const operate = (operator, num1, num2) => {
+  if (operator[0] === '+') {
+    return parseFloat(num1) + parseFloat(num2);
+  } else if (operator[0] === '-') {
+    return parseFloat(num1) - parseFloat(num2);
+  } else if (operator[0] === '*') {
+    return parseFloat(num1) * parseFloat(num2);
+  } else if (operator[0] === '/') {
+    return parseFloat(num1) / parseFloat(num2);
   }
 };
-const one = () => {
+const num = num => {
+  let currentNum = total.innerHTML.split(' ')[
+    total.innerHTML.split(' ').length - 1
+  ];
   if (
-    total.innerHTML[0] === '0' &&
-    total.innerHTML.indexOf('.') < 0 &&
-    total.innerHTML.indexOf(' ') < 0
+    currentNum[0] === '0' &&
+    currentNum.indexOf('.') < 0 &&
+    currentNum.indexOf(' ') < 0
   ) {
-    total.innerHTML = '1';
+    currentNum = num;
+    total.innerHTML = splitTotal.join(' ');
   } else {
-    total.innerHTML += '1';
+    total.innerHTML += num;
   }
 };
-const two = () => {
-  if (
-    total.innerHTML[0] === '0' &&
-    total.innerHTML.indexOf('.') < 0 &&
-    total.innerHTML.indexOf(' ') < 0
-  ) {
-    total.innerHTML = '2';
-  } else {
-    total.innerHTML += '2';
+const symbol = symbol => {
+  let currentNum = total.innerHTML.split(' ')[
+    total.innerHTML.split(' ').length - 1
+  ];
+  if (!isNaN(parseFloat(currentNum))) {
+    if (currentNum[currentNum.length - 1] === '.') {
+      backspaceTotal();
+    }
+    total.innerHTML += ` ${symbol} `;
   }
 };
-const three = () => {
-  if (
-    total.innerHTML[0] === '0' &&
-    total.innerHTML.indexOf('.') < 0 &&
-    total.innerHTML.indexOf(' ') < 0
-  ) {
-    total.innerHTML = '3';
-  } else {
-    total.innerHTML += '3';
-  }
-};
-const four = () => {
-  if (
-    total.innerHTML[0] === '0' &&
-    total.innerHTML.indexOf('.') < 0 &&
-    total.innerHTML.indexOf(' ') < 0
-  ) {
-    total.innerHTML = '4';
-  } else {
-    total.innerHTML += '4';
-  }
-};
-const five = () => {
-  if (
-    total.innerHTML[0] === '0' &&
-    total.innerHTML.indexOf('.') < 0 &&
-    total.innerHTML.indexOf(' ') < 0
-  ) {
-    total.innerHTML = '5';
-  } else {
-    total.innerHTML += '5';
-  }
-};
-const six = () => {
-  if (
-    total.innerHTML[0] === '0' &&
-    total.innerHTML.indexOf('.') < 0 &&
-    total.innerHTML.indexOf(' ') < 0
-  ) {
-    total.innerHTML = '6';
-  } else {
-    total.innerHTML += '6';
-  }
-};
-const seven = () => {
-  if (
-    total.innerHTML[0] === '0' &&
-    total.innerHTML.indexOf('.') < 0 &&
-    total.innerHTML.indexOf(' ') < 0
-  ) {
-    total.innerHTML = '7';
-  } else {
-    total.innerHTML += '7';
-  }
-};
-const eight = () => {
-  if (
-    total.innerHTML[0] === '0' &&
-    total.innerHTML.indexOf('.') < 0 &&
-    total.innerHTML.indexOf(' ') < 0
-  ) {
-    total.innerHTML = '8';
-  } else {
-    total.innerHTML += '8';
-  }
-};
-const nine = () => {
-  if (
-    total.innerHTML[0] === '0' &&
-    total.innerHTML.indexOf('.') < 0 &&
-    total.innerHTML.indexOf(' ') < 0
-  ) {
-    total.innerHTML = '9';
-  } else {
-    total.innerHTML += '9';
-  }
-};
-
-//Declare symbol functions
 const decimal = () => {
-  if (total.innerHTML.indexOf('.') < 0) {
-    if (total.innerHTML.length < 1) {
+  let currentNum = total.innerHTML.split(' ')[
+    total.innerHTML.split(' ').length - 1
+  ];
+  if (currentNum.indexOf('.') < 0) {
+    if (currentNum.length < 1) {
       total.innerHTML += '0.';
     } else {
       total.innerHTML += '.';
     }
   }
 };
-const addition = () => {
-  if (!isNaN(parseInt(total.innerHTML[total.innerHTML.length - 1]))) {
-    total.innerHTML += ' + ';
-  }
-};
-const subtraction = () => {
-  if (!isNaN(parseInt(total.innerHTML[total.innerHTML.length - 1]))) {
-    total.innerHTML += ' - ';
-  }
-};
-const multiplication = () => {
-  if (!isNaN(parseInt(total.innerHTML[total.innerHTML.length - 1]))) {
-    total.innerHTML += ' * ';
-  }
-};
-const division = () => {
-  if (!isNaN(parseInt(total.innerHTML[total.innerHTML.length - 1]))) {
-    total.innerHTML += ' / ';
-  }
-};
-
-// Declare top row functions
 const clearAll = () => {
   total.innerHTML = '';
   history.innerHTML = '';
