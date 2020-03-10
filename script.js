@@ -4,6 +4,7 @@ const history = document.getElementById('history');
 const total = document.getElementById('total');
 
 const equation = () => {
+  operateTemporary();
   if (!total.innerHTML) {
     return;
   } else {
@@ -23,7 +24,7 @@ const equation = () => {
     } else {
       history.appendChild(recent);
     }
-    total.innerHTML = joinedTotal;
+    total.innerHTML = `<p id='temporary'>${joinedTotal}</p>`;
   }
 };
 
@@ -62,6 +63,7 @@ const operate = (operator, num1, num2) => {
 };
 
 const num = num => {
+  removeTemporary();
   let splitTotal = total.innerHTML.split(' ');
   if (
     splitTotal[splitTotal.length - 1][0] === '0' &&
@@ -76,6 +78,7 @@ const num = num => {
 };
 
 const symbol = symbol => {
+  operateTemporary();
   let currentNum = total.innerHTML.split(' ')[
     total.innerHTML.split(' ').length - 1
   ];
@@ -88,6 +91,7 @@ const symbol = symbol => {
 };
 
 const decimal = () => {
+  operateTemporary();
   let currentNum = total.innerHTML.split(' ')[
     total.innerHTML.split(' ').length - 1
   ];
@@ -101,17 +105,47 @@ const decimal = () => {
 };
 
 const clearAll = () => {
+  removeTemporary();
   total.innerHTML = '';
   history.innerHTML = '';
 };
 
 const clearTotal = () => {
+  removeTemporary();
   total.innerHTML = '';
 };
 
 const backspaceTotal = num => {
-  while (num > 0) {
+  operateTemporary();
+  if (num) {
+    while (num > 0) {
+      total.innerHTML = total.innerHTML.substring(
+        0,
+        total.innerHTML.length - 1
+      );
+      num--;
+    }
+  } else {
     total.innerHTML = total.innerHTML.substring(0, total.innerHTML.length - 1);
-    num--;
+  }
+};
+
+const removeTemporary = () => {
+  if (Boolean(document.getElementById('temporary'))) {
+    const temporary = document.getElementById('temporary');
+    if (temporary.parentNode) {
+      temporary.parentNode.removeChild(temporary);
+    }
+  }
+};
+
+const operateTemporary = () => {
+  if (Boolean(document.getElementById('temporary'))) {
+    const temporary = document.getElementById('temporary');
+    const content = temporary.innerHTML;
+    total.innerHTML = content;
+    if (temporary.parentNode) {
+      temporary.parentNode.removeChild(temporary);
+    }
   }
 };
