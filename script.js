@@ -31,7 +31,9 @@ const equation = () => {
       splitTotal.unshift(newTotal);
     }
   }
-  let joinedTotal = parseFloat(splitTotal.join('')).toFixed(5);
+  let joinedTotal =
+    Math.round((parseFloat(splitTotal.join('')) + Number.EPSILON) * 10000) /
+    10000;
   let recent = document.createElement('p');
   recent.innerHTML = oldTotal + ' = ' + joinedTotal;
   if (history.firstChild) {
