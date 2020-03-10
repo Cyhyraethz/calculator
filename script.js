@@ -26,7 +26,7 @@ const equation = () => {
     } else {
       history.appendChild(recent);
     }
-    total.innerHTML = `<p id='temporary'>${joinedTotal}</p>`;
+    total.innerHTML = `<div id='temporary'>${joinedTotal}</div>`;
   }
 };
 
