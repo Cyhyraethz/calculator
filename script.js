@@ -5,32 +5,9 @@ const history = document.getElementById('history');
 const total = document.getElementById('total');
 
 const equation = () => {
-  let operator;
-  let num1;
-  let num2;
-  let newTotal;
   let oldTotal = total.innerHTML;
   let splitTotal = total.innerHTML.split(' ');
-  while (splitTotal.length > 1) {
-    if (splitTotal.join(' ').search(/[*/]/) > -1) {
-      let index = splitTotal.join('').indexOf(/[*/]/);
-      num2 = splitTotal.splice(index, 1);
-      operator = splitTotal.splice(index, 1);
-      num1 = splitTotal.splice(index, 1, 'placeholder');
-      newTotal = operate(operator, num1, num2);
-      splitTotal.splice(
-        splitTotal.indexOf('placeholder'),
-        1,
-        newTotal.toString()
-      );
-    } else {
-      num1 = splitTotal.splice(0, 1);
-      operator = splitTotal.splice(0, 1);
-      num2 = splitTotal.splice(0, 1);
-      newTotal = operate(operator, num1, num2);
-      splitTotal.unshift(newTotal);
-    }
-  }
+  logic(splitTotal);
   let joinedTotal =
     Math.round((parseFloat(splitTotal.join('')) + Number.EPSILON) * 10000) /
     10000;
@@ -42,6 +19,25 @@ const equation = () => {
     history.appendChild(recent);
   }
   total.innerHTML = joinedTotal;
+};
+
+const logic = arr => {
+  while (arr.length > 1) {
+    if (arr.join(' ').search(/[*/]/) > -1) {
+      let index = arr.join('').indexOf(/[*/]/);
+      let num2 = arr.splice(index, 1);
+      let operator = arr.splice(index, 1);
+      let num1 = arr.splice(index, 1, 'placeholder');
+      let newTotal = operate(operator, num1, num2);
+      arr.splice(arr.indexOf('placeholder'), 1, newTotal.toString());
+    } else {
+      let num1 = arr.splice(0, 1);
+      let operator = arr.splice(0, 1);
+      let num2 = arr.splice(0, 1);
+      let newTotal = operate(operator, num1, num2);
+      arr.unshift(newTotal);
+    }
+  }
 };
 
 const operate = (operator, num1, num2) => {
