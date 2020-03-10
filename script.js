@@ -1,4 +1,5 @@
-// To do: add keyboard functionality
+// To do: prevent consecutive duplicates in history
+// To do: add keyboard functionality to calculator
 
 const history = document.getElementById('history');
 const total = document.getElementById('total');
