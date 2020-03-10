@@ -1,32 +1,35 @@
 // To do: display error message for dividing by zero
-// To do: prevent consecutive duplicates in history
 // To do: add keyboard functionality to calculator
 
 const history = document.getElementById('history');
 const total = document.getElementById('total');
 
 const equation = () => {
-  operateTemporary();
-  if (!total.innerHTML) {
-    return;
-  } else {
-    if (total.innerHTML[total.innerHTML.length - 1].search(/\d/) < 0) {
-      backspaceTotal(3);
-    }
-    let oldTotal = total.innerHTML;
-    let splitTotal = total.innerHTML.split(' ');
-    logic(splitTotal);
-    let joinedTotal =
-      Math.round((parseFloat(splitTotal.join('')) + Number.EPSILON) * 10000) /
-      10000;
-    let recent = document.createElement('p');
-    recent.innerHTML = oldTotal + ' = ' + joinedTotal;
-    if (history.firstChild) {
-      history.insertBefore(recent, history.firstChild);
+  if (!document.getElementById('temporary')) {
+    if (!total.innerHTML) {
+      return;
     } else {
-      history.appendChild(recent);
+      if (total.innerHTML[total.innerHTML.length - 1].search(/\d/) < 0) {
+        backspaceTotal(3);
+      }
+      let oldTotal = total.innerHTML;
+      let splitTotal = total.innerHTML.split(' ');
+      logic(splitTotal);
+      let joinedTotal =
+        Math.round((parseFloat(splitTotal.join('')) + Number.EPSILON) * 10000) /
+        10000;
+      let recent = document.createElement('p');
+      recent.innerHTML = oldTotal + ' = ' + joinedTotal;
+      if (
+        history.firstChild &&
+        history.firstChild.innerHTML !== recent.innerHTML
+      ) {
+        history.insertBefore(recent, history.firstChild);
+      } else if (!history.firstChild) {
+        history.appendChild(recent);
+      }
+      total.innerHTML = `<div id='temporary'>${joinedTotal}</div>`;
     }
-    total.innerHTML = `<div id='temporary'>${joinedTotal}</div>`;
   }
 };
 
