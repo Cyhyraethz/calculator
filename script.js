@@ -1,4 +1,3 @@
-// To do: display error message for dividing by zero
 // To do: add keyboard functionality to calculator
 
 const history = document.getElementById('history');
@@ -14,21 +13,29 @@ const equation = () => {
       }
       let oldTotal = total.innerHTML;
       let splitTotal = total.innerHTML.split(' ');
-      logic(splitTotal);
-      let joinedTotal =
-        Math.round((parseFloat(splitTotal.join('')) + Number.EPSILON) * 10000) /
-        10000;
-      let recent = document.createElement('p');
-      recent.innerHTML = oldTotal + ' = ' + joinedTotal;
       if (
-        history.firstChild &&
-        history.firstChild.innerHTML !== recent.innerHTML
+        splitTotal.indexOf('/') > -1 &&
+        splitTotal[splitTotal.indexOf('/') + 1] === '0'
       ) {
-        history.insertBefore(recent, history.firstChild);
-      } else if (!history.firstChild) {
-        history.appendChild(recent);
+        M.toast({ html: 'Cannot divide by zero.' });
+      } else {
+        logic(splitTotal);
+        let joinedTotal =
+          Math.round(
+            (parseFloat(splitTotal.join('')) + Number.EPSILON) * 10000
+          ) / 10000;
+        let recent = document.createElement('p');
+        recent.innerHTML = oldTotal + ' = ' + joinedTotal;
+        if (
+          history.firstChild &&
+          history.firstChild.innerHTML !== recent.innerHTML
+        ) {
+          history.insertBefore(recent, history.firstChild);
+        } else if (!history.firstChild) {
+          history.appendChild(recent);
+        }
+        total.innerHTML = `<div id='temporary'>${joinedTotal}</div>`;
       }
-      total.innerHTML = `<div id='temporary'>${joinedTotal}</div>`;
     }
   }
 };
