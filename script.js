@@ -103,8 +103,6 @@ const clearTotal = () => {
   total.innerHTML = '';
 };
 
-const backspaceTotal = num => {
-  for (let i = 0; i < num; i++) {
-    total.innerHTML = total.innerHTML.substring(0, total.innerHTML.length - 1);
-  }
+const backspaceTotal = () => {
+  total.innerHTML = total.innerHTML.substring(0, total.innerHTML.length - 1);
 };
