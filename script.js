@@ -4,24 +4,30 @@ const history = document.getElementById('history');
 const total = document.getElementById('total');
 
 const equation = () => {
-  let oldTotal = total.innerHTML;
-  let splitTotal = total.innerHTML.split(' ');
-  logic(splitTotal);
-  let joinedTotal =
-    Math.round((parseFloat(splitTotal.join('')) + Number.EPSILON) * 10000) /
-    10000;
-  let recent = document.createElement('p');
-  recent.innerHTML = oldTotal + ' = ' + joinedTotal;
-  if (history.firstChild) {
-    history.insertBefore(recent, history.firstChild);
+  if (!total.innerHTML) {
+    return;
   } else {
-    history.appendChild(recent);
+    if (total.innerHTML[total.innerHTML.length - 1].search(/\d/) < 0) {
+      backspaceTotal(3);
+    }
+    let oldTotal = total.innerHTML;
+    let splitTotal = total.innerHTML.split(' ');
+    logic(splitTotal);
+    let joinedTotal =
+      Math.round((parseFloat(splitTotal.join('')) + Number.EPSILON) * 10000) /
+      10000;
+    let recent = document.createElement('p');
+    recent.innerHTML = oldTotal + ' = ' + joinedTotal;
+    if (history.firstChild) {
+      history.insertBefore(recent, history.firstChild);
+    } else {
+      history.appendChild(recent);
+    }
+    total.innerHTML = joinedTotal;
   }
-  total.innerHTML = joinedTotal;
 };
 
 const logic = arr => {
-  console.log(arr);
   if (arr[arr.length - 1] === '') {
     arr.splice(arr.length - 2, 2);
   }
@@ -103,6 +109,9 @@ const clearTotal = () => {
   total.innerHTML = '';
 };
 
-const backspaceTotal = () => {
-  total.innerHTML = total.innerHTML.substring(0, total.innerHTML.length - 1);
+const backspaceTotal = num => {
+  while (num > 0) {
+    total.innerHTML = total.innerHTML.substring(0, total.innerHTML.length - 1);
+    num--;
+  }
 };
