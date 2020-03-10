@@ -1,5 +1,4 @@
-// To do: remove insignificant trailing zeros from total
-// To do: add some keyboard functionality calculator
+// To do: add keyboard functionality
 
 const history = document.getElementById('history');
 const total = document.getElementById('total');
@@ -22,6 +21,10 @@ const equation = () => {
 };
 
 const logic = arr => {
+  console.log(arr);
+  if (arr[arr.length - 1] === '') {
+    arr.splice(arr.length - 2, 2);
+  }
   while (arr.length > 1) {
     if (arr.join(' ').search(/[*/]/) > -1) {
       let index = arr.join('').indexOf(/[*/]/);
@@ -100,6 +103,8 @@ const clearTotal = () => {
   total.innerHTML = '';
 };
 
-const backspaceTotal = () => {
-  total.innerHTML = total.innerHTML.substring(0, total.innerHTML.length - 1);
+const backspaceTotal = num => {
+  for (let i = 0; i < num; i++) {
+    total.innerHTML = total.innerHTML.substring(0, total.innerHTML.length - 1);
+  }
 };
