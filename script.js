@@ -1,6 +1,11 @@
-// To do: add animation effect to buttons on key press
+// To do: different background colors for different groups of keys
+// Below are the three different groups of keys
+// C, Clear All, Backspace
+// .0123456789
+// -+*/=
 
 const history = document.getElementById('history');
+const buttons = document.querySelectorAll('.btn');
 const total = document.getElementById('total');
 
 const equation = () => {
@@ -162,22 +167,65 @@ const operateTemporary = () => {
   }
 };
 
+window.addEventListener('click', e => {
+  // console.log(e.target);
+  // console.log(Boolean(e.target.id));
+  // console.log('\n');
+  if (
+    e.target.id === 'arrow_back' ||
+    e.target.id === 'subdirectory_arrow_left'
+  ) {
+    const btn = document.getElementById(`${e.target.parentNode.parentNode.id}`);
+    if (btn) {
+      btn.classList.add('active');
+    }
+  } else if (e.target.id) {
+    const btn = document.getElementById(`${e.target.id}`);
+    if (btn) {
+      btn.classList.add('active');
+    }
+  } else {
+    const btn = document.getElementById(`${e.target.parentNode.id}`);
+    if (btn) {
+      btn.classList.add('active');
+    }
+  }
+});
+
 window.addEventListener('keydown', e => {
-  // console.log(`"${e.key}" = ${e.keyCode}`);
-  // console.log(Boolean(/[.]/.test(e.key)));
   if (/\d/.test(e.key)) {
+    const btn = document.getElementById(`${e.key}`);
+    btn.classList.add('active');
     num(e.key);
   } else if (/[-+*/]/.test(e.key)) {
+    const btn = document.getElementById(`${e.key}`);
+    btn.classList.add('active');
     symbol(e.key);
   } else if (e.keyCode === 67) {
+    const btn = document.getElementById('c');
+    btn.classList.add('active');
     clearTotal();
   } else if (e.keyCode === 8) {
+    const btn = document.getElementById('backspace');
+    btn.classList.add('active');
     backspaceTotal();
   } else if (e.keyCode === 13) {
+    const btn = document.getElementById('equals');
+    btn.classList.add('active');
     equation();
   } else if (e.keyCode === 46) {
+    const btn = document.getElementById('del');
+    btn.classList.add('active');
     clearAll();
   } else if (/[.]/.test(e.key)) {
+    const btn = document.getElementById('dot');
+    btn.classList.add('active');
     decimal();
   }
 });
+
+buttons.forEach(btn =>
+  btn.addEventListener('transitionend', e => {
+    btn.classList.remove('active');
+  })
+);
