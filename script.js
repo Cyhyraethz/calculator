@@ -1,3 +1,5 @@
+// To do: add animation effect to buttons on key press
+
 const history = document.getElementById('history');
 const total = document.getElementById('total');
 
