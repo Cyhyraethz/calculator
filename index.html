@@ -17,13 +17,23 @@
   <body>
     <div class="container">
       <div class="row">
-        <!-- (empty space) -->
         <div class="first-row">
           <div class="btn invis col s12"></div>
         </div>
 
-        <!-- (clear all, backspace) -->
         <div class="second-row">
+          <div class="btn invis col s12"></div>
+        </div>
+
+        <!--   total   -->
+        <div class="third-row">
+          <div class="btn invis col s2"></div>
+          <div class="white-text col s8" id="total"></div>
+          <div class="btn invis col s2"></div>
+        </div>
+
+        <!--   clear all, backspace   -->
+        <div class="fourth-row">
           <div class="btn invis col s2"></div>
           <div class="btn grey darken-4 col s4" onclick="clearAll()">
             <p class="vertical">Clear All</p>
@@ -34,8 +44,8 @@
           <div class="btn invis col s2"></div>
         </div>
 
-        <!-- (C, /, *, -) -->
-        <div class="third-row">
+        <!--   C, /, *, -   -->
+        <div class="fifth-row">
           <div class="btn invis col s2"></div>
           <div class="btn grey darken-4 col s2" onclick="clearTotal()">
             <p class="vertical">C</p>
@@ -52,8 +62,8 @@
           <div class="btn invis col s2"></div>
         </div>
 
-        <!-- (7, 8, 9, +, 4, 5, 6) -->
-        <div class="fourth-row fifth-row">
+        <!--   7, 8, 9, +, 4, 5, 6   -->
+        <div class="sixth-row seventh-row">
           <div class="tall btn invis col s2"></div>
           <div class="tall col s2">
             <div class="wide btn grey darken-4" onclick="num(7)">
@@ -85,8 +95,8 @@
           <div class="tall btn invis col s2"></div>
         </div>
 
-        <!-- (1, 2, 3, =, 0, .) -->
-        <div class="sixth-row seventh-row">
+        <!--   1, 2, 3, return, 0, .   -->
+        <div class="eigth-row nineth-row">
           <div class="tall btn invis col s2"></div>
           <div class="tall col s2">
             <div class="wide btn grey darken-4" onclick="num(1)">
@@ -112,29 +122,18 @@
             </div>
           </div>
           <div class="tall btn grey darken-4 col s2" onclick="equation()">
-            <p style="margin-top: 30px;">=</p>
+            <p style="margin-top: 30px;">
+              <i class="material-icons">subdirectory_arrow_left</i>
+            </p>
           </div>
           <div class="tall btn invis col s2"></div>
         </div>
 
-        <!-- (empty space) -->
-        <div class="eigth-row">
-          <div class="btn invis col s12"></div>
-        </div>
-
-        <!-- (total) -->
-        <div class="nineth-row">
-          <div class="btn invis col s2"></div>
-          <div class="white-text col s8"><b id="total"></b></div>
-          <div class="btn invis col s2"></div>
-        </div>
-
-        <!-- (empty space) -->
         <div class="tenth-row">
           <div class="btn invis col s12"></div>
         </div>
 
-        <!-- (history) -->
+        <!--   history   -->
         <div class="eleventh-row">
           <div class="btn invis col s2"></div>
           <div class="white-text col s8" id="history"></div>
