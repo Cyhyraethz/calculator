@@ -1,5 +1,3 @@
-// To do: add keyboard functionality to calculator
-
 const history = document.getElementById('history');
 const total = document.getElementById('total');
 
@@ -161,3 +159,23 @@ const operateTemporary = () => {
     }
   }
 };
+
+window.addEventListener('keydown', e => {
+  // console.log(`"${e.key}" = ${e.keyCode}`);
+  // console.log(Boolean(/[.]/.test(e.key)));
+  if (/\d/.test(e.key)) {
+    num(e.key);
+  } else if (/[-+*/]/.test(e.key)) {
+    symbol(e.key);
+  } else if (e.keyCode === 67) {
+    clearTotal();
+  } else if (e.keyCode === 8) {
+    backspaceTotal();
+  } else if (e.keyCode === 13) {
+    equation();
+  } else if (e.keyCode === 46) {
+    clearAll();
+  } else if (/[.]/.test(e.key)) {
+    decimal();
+  }
+});
