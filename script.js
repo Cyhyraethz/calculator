@@ -1,4 +1,4 @@
-// To do: fix problem with decimal after negative sign in total
+// To do: remove insignificant trailing zeros from history
 
 const history = document.getElementById('history');
 const total = document.getElementById('total');
@@ -131,7 +131,7 @@ const decimal = () => {
   const splitTotal = total.innerHTML.split(' ');
   const lastNum = splitTotal[splitTotal.length - 1];
   if (lastNum.indexOf('.') < 0) {
-    if (lastNum.length < 1) {
+    if (lastNum.length < 1 || lastNum === '-') {
       total.innerHTML += '0.';
     } else {
       total.innerHTML += '.';
