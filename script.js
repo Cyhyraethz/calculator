@@ -23,7 +23,6 @@ const equation = () => {
       oldArr.push(item);
     });
     const oldTotal = oldArr.join(' ');
-    console.log(oldTotal);
     const splitTotal = total.innerHTML.split(' ');
     if (
       splitTotal.indexOf('/') > -1 &&
@@ -190,9 +189,6 @@ const operateTemporary = () => {
 };
 
 window.addEventListener('click', e => {
-  // console.log(e.target);
-  // console.log(Boolean(e.target.id));
-  // console.log('\n');
   if (
     e.target.id === 'arrow_back' ||
     e.target.id === 'subdirectory_arrow_left'
