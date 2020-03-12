@@ -1,9 +1,4 @@
 // To do: allow the user to input negative numbers using the subtract button
-// To do: different background colors for different groups of keys
-// Below are the three different groups of keys
-// C, Clear All, Backspace
-// .0123456789
-// -+*/=
 
 const history = document.getElementById('history');
 const buttons = document.querySelectorAll('.btn');
