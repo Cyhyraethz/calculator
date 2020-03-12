@@ -1,42 +1,40 @@
-// To do: allow the user to input negative numbers using the subtract button
-
 const history = document.getElementById('history');
-const buttons = document.querySelectorAll('.btn');
 const total = document.getElementById('total');
 
 const equation = () => {
+  const lastChar = total.innerHTML[total.innerHTML.length - 1];
   if (!document.getElementById('temporary')) {
     if (!total.innerHTML) {
       return;
+    } else if (total.innerHTML === '-') {
+      backspaceTotal();
+      return;
+    } else if (lastChar.search(/\d/) < 0) {
+      backspaceTotal();
+    }
+    const oldTotal = total.innerHTML;
+    const splitTotal = total.innerHTML.split(' ');
+    if (
+      splitTotal.indexOf('/') > -1 &&
+      splitTotal[splitTotal.indexOf('/') + 1] === '0'
+    ) {
+      M.toast({ html: 'Cannot divide by zero.' });
     } else {
-      if (total.innerHTML[total.innerHTML.length - 1].search(/\d/) < 0) {
-        backspaceTotal(3);
-      }
-      let oldTotal = total.innerHTML;
-      let splitTotal = total.innerHTML.split(' ');
+      logic(splitTotal);
+      const joinedTotal =
+        Math.round((parseFloat(splitTotal.join('')) + Number.EPSILON) * 10000) /
+        10000;
+      const recent = document.createElement('p');
+      recent.innerHTML = oldTotal + ' = ' + joinedTotal;
       if (
-        splitTotal.indexOf('/') > -1 &&
-        splitTotal[splitTotal.indexOf('/') + 1] === '0'
+        history.firstChild &&
+        history.firstChild.innerHTML !== recent.innerHTML
       ) {
-        M.toast({ html: 'Cannot divide by zero.' });
-      } else {
-        logic(splitTotal);
-        let joinedTotal =
-          Math.round(
-            (parseFloat(splitTotal.join('')) + Number.EPSILON) * 10000
-          ) / 10000;
-        let recent = document.createElement('p');
-        recent.innerHTML = oldTotal + ' = ' + joinedTotal;
-        if (
-          history.firstChild &&
-          history.firstChild.innerHTML !== recent.innerHTML
-        ) {
-          history.insertBefore(recent, history.firstChild);
-        } else if (!history.firstChild) {
-          history.appendChild(recent);
-        }
-        total.innerHTML = `<div id='temporary'>${joinedTotal}</div>`;
+        history.insertBefore(recent, history.firstChild);
+      } else if (!history.firstChild) {
+        history.appendChild(recent);
       }
+      total.innerHTML = `<div id='temporary'>${joinedTotal}</div>`;
     }
   }
 };
@@ -47,17 +45,17 @@ const logic = arr => {
   }
   while (arr.length > 1) {
     if (arr.join(' ').search(/[*/]/) > -1) {
-      let index = arr.join('').indexOf(/[*/]/);
-      let num2 = arr.splice(index, 1);
-      let operator = arr.splice(index, 1);
-      let num1 = arr.splice(index, 1, 'placeholder');
-      let newTotal = operate(operator, num1, num2);
+      const index = arr.join('').indexOf(/[*/]/);
+      const num2 = arr.splice(index, 1);
+      const operator = arr.splice(index, 1);
+      const num1 = arr.splice(index, 1, 'placeholder');
+      const newTotal = operate(operator, num1, num2);
       arr.splice(arr.indexOf('placeholder'), 1, newTotal.toString());
     } else {
-      let num1 = arr.splice(0, 1);
-      let operator = arr.splice(0, 1);
-      let num2 = arr.splice(0, 1);
-      let newTotal = operate(operator, num1, num2);
+      const num1 = arr.splice(0, 1);
+      const operator = arr.splice(0, 1);
+      const num2 = arr.splice(0, 1);
+      const newTotal = operate(operator, num1, num2);
       arr.unshift(newTotal);
     }
   }
@@ -77,7 +75,7 @@ const operate = (operator, num1, num2) => {
 
 const num = num => {
   removeTemporary();
-  let splitTotal = total.innerHTML.split(' ');
+  const splitTotal = total.innerHTML.split(' ');
   if (
     splitTotal[splitTotal.length - 1][0] === '0' &&
     splitTotal[splitTotal.length - 1].indexOf('.') < 0 &&
@@ -92,24 +90,33 @@ const num = num => {
 
 const symbol = symbol => {
   operateTemporary();
-  let currentNum = total.innerHTML.split(' ')[
-    total.innerHTML.split(' ').length - 1
-  ];
-  if (!isNaN(parseFloat(currentNum))) {
-    if (currentNum[currentNum.length - 1] === '.') {
+  const splitTotal = total.innerHTML.split(' ');
+  const lastNum = splitTotal[splitTotal.length - 1];
+  const lastSymbol = splitTotal[splitTotal.length - 2];
+  if (!isNaN(parseFloat(lastNum))) {
+    if (lastNum[lastNum.length - 1] === '.') {
       backspaceTotal();
     }
+    total.innerHTML += ` ${symbol} `;
+  } else if (lastNum === '' && symbol === '-') {
+    if (lastSymbol === '*' || lastSymbol === '/' || lastSymbol === undefined) {
+      total.innerHTML += symbol;
+    } else if (lastSymbol === '+') {
+      backspaceTotal();
+      total.innerHTML += ` ${symbol} `;
+    }
+  } else if (lastNum === '' && symbol.search(/[+*/]/) > -1) {
+    backspaceTotal();
     total.innerHTML += ` ${symbol} `;
   }
 };
 
 const decimal = () => {
   operateTemporary();
-  let currentNum = total.innerHTML.split(' ')[
-    total.innerHTML.split(' ').length - 1
-  ];
-  if (currentNum.indexOf('.') < 0) {
-    if (currentNum.length < 1) {
+  const splitTotal = total.innerHTML.split(' ');
+  const lastNum = splitTotal[splitTotal.length - 1];
+  if (lastNum.indexOf('.') < 0) {
+    if (lastNum.length < 1) {
       total.innerHTML += '0.';
     } else {
       total.innerHTML += '.';
@@ -129,17 +136,18 @@ const clearTotal = () => {
 };
 
 const backspaceTotal = num => {
+  const threeLess = total.innerHTML.substring(0, total.innerHTML.length - 3);
+  const fourLess = total.innerHTML.substring(0, total.innerHTML.length - 4);
+  const oneLess = total.innerHTML.substring(0, total.innerHTML.length - 1);
+  const str = total.innerHTML.substring(0, total.innerHTML.length);
+  const last = str[str.length - 1];
   operateTemporary();
-  if (num) {
-    while (num > 0) {
-      total.innerHTML = total.innerHTML.substring(
-        0,
-        total.innerHTML.length - 1
-      );
-      num--;
-    }
+  if (str.length > 1 && last === ' ') {
+    total.innerHTML = threeLess;
+  } else if (str.length > 1 && last === '-') {
+    total.innerHTML = fourLess;
   } else {
-    total.innerHTML = total.innerHTML.substring(0, total.innerHTML.length - 1);
+    total.innerHTML = oneLess;
   }
 };
 
@@ -220,7 +228,7 @@ window.addEventListener('keydown', e => {
   }
 });
 
-buttons.forEach(btn =>
+document.querySelectorAll('.btn').forEach(btn =>
   btn.addEventListener('transitionend', e => {
     btn.classList.remove('active');
   })
