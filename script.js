@@ -1,4 +1,5 @@
-// To do: fix problem with decimal after negative sign
+// To do: fix problem with function keys (F1, F2, F3, etc) in total
+// To do: fix problem with decimal after negative sign in total
 
 const history = document.getElementById('history');
 const total = document.getElementById('total');
@@ -211,7 +212,9 @@ window.addEventListener('click', e => {
 window.addEventListener('keydown', e => {
   if (/\d/.test(e.key)) {
     const btn = document.getElementById(`${e.key}`);
-    btn.classList.add('active');
+    if (btn) {
+      btn.classList.add('active');
+    }
     num(e.key);
   } else if (/[-+*/]/.test(e.key)) {
     const btn = document.getElementById(`${e.key}`);
