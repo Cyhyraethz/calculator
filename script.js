@@ -243,4 +243,3 @@ document.querySelectorAll('.btn').forEach(btn =>
     btn.classList.remove('active');
   })
 );
-// Testing
