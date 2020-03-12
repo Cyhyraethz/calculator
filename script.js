@@ -1,5 +1,3 @@
-// To do: remove insignificant trailing zeros from history
-
 const history = document.getElementById('history');
 const total = document.getElementById('total');
 
@@ -17,7 +15,15 @@ const equation = () => {
     } else if (lastChar === ' ') {
       backspaceTotal();
     }
-    const oldTotal = total.innerHTML;
+    const oldArr = [];
+    total.innerHTML.split(' ').forEach(item => {
+      if (!isNaN(parseFloat(item))) {
+        item = Math.round((parseFloat(item) + Number.EPSILON) * 10000) / 10000;
+      }
+      oldArr.push(item);
+    });
+    const oldTotal = oldArr.join(' ');
+    console.log(oldTotal);
     const splitTotal = total.innerHTML.split(' ');
     if (
       splitTotal.indexOf('/') > -1 &&
