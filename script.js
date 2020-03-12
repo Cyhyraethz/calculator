@@ -1,3 +1,6 @@
+// To do: add calculator button tooltips with keyboard shortcuts
+// To do: add a significant delay to calculator button tooltips
+
 const history = document.getElementById('history');
 const total = document.getElementById('total');
 
