@@ -1,3 +1,5 @@
+// To do: fix problem with decimal after negative sign
+
 const history = document.getElementById('history');
 const total = document.getElementById('total');
 
