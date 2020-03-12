@@ -9,7 +9,10 @@ const equation = () => {
     } else if (total.innerHTML === '-') {
       backspaceTotal();
       return;
-    } else if (lastChar.search(/\d/) < 0) {
+    } else if (lastChar === '-') {
+      backspaceTotal();
+      backspaceTotal();
+    } else if (lastChar === ' ') {
       backspaceTotal();
     }
     const oldTotal = total.innerHTML;
@@ -105,9 +108,19 @@ const symbol = symbol => {
       backspaceTotal();
       total.innerHTML += ` ${symbol} `;
     }
-  } else if (lastNum === '' && symbol.search(/[+*/]/) > -1) {
+  } else if (
+    lastNum === '' &&
+    symbol.search(/[+*/]/) > -1 &&
+    total.innerHTML.length > 0
+  ) {
     backspaceTotal();
     total.innerHTML += ` ${symbol} `;
+  } else if (lastNum === '-') {
+    if (lastSymbol === '*' || lastSymbol === '/') {
+      backspaceTotal();
+      backspaceTotal();
+      total.innerHTML += ` ${symbol} `;
+    }
   }
 };
 
@@ -137,15 +150,12 @@ const clearTotal = () => {
 
 const backspaceTotal = num => {
   const threeLess = total.innerHTML.substring(0, total.innerHTML.length - 3);
-  const fourLess = total.innerHTML.substring(0, total.innerHTML.length - 4);
   const oneLess = total.innerHTML.substring(0, total.innerHTML.length - 1);
   const str = total.innerHTML.substring(0, total.innerHTML.length);
   const last = str[str.length - 1];
   operateTemporary();
   if (str.length > 1 && last === ' ') {
     total.innerHTML = threeLess;
-  } else if (str.length > 1 && last === '-') {
-    total.innerHTML = fourLess;
   } else {
     total.innerHTML = oneLess;
   }
