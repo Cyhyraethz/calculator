@@ -1,6 +1,5 @@
 // To do: add calculator button tooltips with keyboard shortcuts
 // To do: add a significant delay to calculator button tooltips
-
 const history = document.getElementById('history');
 const total = document.getElementById('total');
 
@@ -216,30 +215,37 @@ window.addEventListener('click', e => {
 window.addEventListener('keydown', e => {
   if (/\d/.test(e.key) && /[F]/.test(e.key) === false) {
     const btn = document.getElementById(`${e.key}`);
+    btn.style.zIndex = 5;
     btn.classList.add('active');
     num(e.key);
   } else if (/[-+*/]/.test(e.key)) {
     const btn = document.getElementById(`${e.key}`);
+    btn.style.zIndex = 5;
     btn.classList.add('active');
     symbol(e.key);
   } else if (e.keyCode === 67) {
     const btn = document.getElementById('c');
+    btn.style.zIndex = 5;
     btn.classList.add('active');
     clearTotal();
   } else if (e.keyCode === 8) {
     const btn = document.getElementById('backspace');
+    btn.style.zIndex = 5;
     btn.classList.add('active');
     backspaceTotal();
   } else if (e.keyCode === 13) {
     const btn = document.getElementById('equals');
+    btn.style.zIndex = 5;
     btn.classList.add('active');
     equation();
   } else if (e.keyCode === 46) {
     const btn = document.getElementById('del');
+    btn.style.zIndex = 5;
     btn.classList.add('active');
     clearAll();
   } else if (/[.]/.test(e.key)) {
     const btn = document.getElementById('dot');
+    btn.style.zIndex = 5;
     btn.classList.add('active');
     decimal();
   }
@@ -248,5 +254,8 @@ window.addEventListener('keydown', e => {
 document.querySelectorAll('.btn').forEach(btn => {
   btn.addEventListener('transitionend', e => {
     btn.classList.remove('active');
+    setTimeout(() => {
+      btn.style.zIndex = 1;
+    }, 70);
   });
 });
