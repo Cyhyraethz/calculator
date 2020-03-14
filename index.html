@@ -37,15 +37,17 @@
           <div class="tall btn invis col s2"></div>
           <div class="tall col s2">
             <div
-              class="rectangle btn blue-grey darken-3"
+              class="first-tooltip rectangle btn blue-grey darken-3"
+              data-tooltip="Delete"
               style="width: 100px;"
-              id="del"
+              id="reset"
               onclick="clearAll()"
             >
               <p class="vertical">Reset</p>
             </div>
             <div
-              class="square bottom btn blue-grey darken-3"
+              class="first-tooltip square bottom btn blue-grey darken-3"
+              data-tooltip="C"
               id="c"
               onclick="clearTotal()"
             >
@@ -54,7 +56,8 @@
           </div>
           <div class="tall col s2">
             <div
-              class="square bottom btn blue-grey darken-4"
+              class="second-tooltip square bottom btn blue-grey darken-4"
+              data-tooltip="/"
               id="/"
               onclick="symbol('/')"
             >
@@ -63,8 +66,9 @@
           </div>
           <div class="tall col s2">
             <div
-              class="rectangle btn blue-grey darken-3"
+              class="fourth-tooltip rectangle btn blue-grey darken-3"
               style="width: 100px;"
+              data-tooltip="Backspace"
               id="backspace"
               onclick="backspaceTotal()"
             >
@@ -73,7 +77,8 @@
               </p>
             </div>
             <div
-              class="square bottom btn blue-grey darken-4"
+              class="third-tooltip square bottom btn blue-grey darken-4"
+              data-tooltip="*"
               id="*"
               onclick="symbol('*')"
             >
@@ -82,7 +87,8 @@
           </div>
           <div class="tall col s2">
             <div
-              class="square bottom btn blue-grey darken-4"
+              class="fourth-tooltip square bottom btn blue-grey darken-4"
+              data-tooltip="-"
               id="-"
               onclick="symbol('-')"
             >
@@ -96,11 +102,17 @@
         <div class="sixth-row seventh-row">
           <div class="tall btn invis col s2"></div>
           <div class="tall col s2">
-            <div class="square btn grey darken-4" id="7" onclick="num(7)">
+            <div
+              class="first-tooltip square btn grey darken-4"
+              data-tooltip="7"
+              id="7"
+              onclick="num(7)"
+            >
               <p class="vertical">7</p>
             </div>
             <div
-              class="square bottom btn grey darken-4"
+              class="first-tooltip square bottom btn grey darken-4"
+              data-tooltip="4"
               id="4"
               onclick="num(4)"
             >
@@ -108,11 +120,17 @@
             </div>
           </div>
           <div class="tall col s2">
-            <div class="square btn grey darken-4" id="8" onclick="num(8)">
+            <div
+              class="second-tooltip square btn grey darken-4"
+              data-tooltip="8"
+              id="8"
+              onclick="num(8)"
+            >
               <p class="vertical">8</p>
             </div>
             <div
-              class="square bottom btn grey darken-4"
+              class="second-tooltip square bottom btn grey darken-4"
+              data-tooltip="5"
               id="5"
               onclick="num(5)"
             >
@@ -120,11 +138,17 @@
             </div>
           </div>
           <div class="tall col s2">
-            <div class="square btn grey darken-4" id="9" onclick="num(9)">
+            <div
+              class="third-tooltip square btn grey darken-4"
+              data-tooltip="9"
+              id="9"
+              onclick="num(9)"
+            >
               <p class="vertical">9</p>
             </div>
             <div
-              class="square bottom btn grey darken-4"
+              class="third-tooltip square bottom btn grey darken-4"
+              data-tooltip="6"
               id="6"
               onclick="num(6)"
             >
@@ -132,7 +156,8 @@
             </div>
           </div>
           <div
-            class="tall btn blue-grey darken-4 col s2"
+            class="fourth-tooltip tall btn blue-grey darken-4 col s2"
+            data-tooltip="+"
             id="+"
             onclick="symbol('+')"
           >
@@ -145,11 +170,17 @@
         <div class="eigth-row nineth-row">
           <div class="tall btn invis col s2"></div>
           <div class="tall col s2">
-            <div class="square btn grey darken-4" id="1" onclick="num(1)">
+            <div
+              class="first-tooltip square btn grey darken-4"
+              data-tooltip="1"
+              id="1"
+              onclick="num(1)"
+            >
               <p class="vertical">1</p>
             </div>
             <div
-              class="square bottom btn grey darken-4"
+              class="first-tooltip square bottom btn grey darken-4"
+              data-tooltip="0"
               style="width: 100px;"
               id="0"
               onclick="num(0)"
@@ -158,16 +189,27 @@
             </div>
           </div>
           <div class="tall col s2">
-            <div class="square btn grey darken-4" id="2" onclick="num(2)">
+            <div
+              class="second-tooltip square btn grey darken-4"
+              data-tooltip="2"
+              id="2"
+              onclick="num(2)"
+            >
               <p class="vertical">2</p>
             </div>
           </div>
           <div class="tall col s2">
-            <div class="square btn grey darken-4" id="3" onclick="num(3)">
+            <div
+              class="third-tooltip square btn grey darken-4"
+              data-tooltip="3"
+              id="3"
+              onclick="num(3)"
+            >
               <p class="vertical">3</p>
             </div>
             <div
-              class="square bottom btn grey darken-4"
+              class="third-tooltip square bottom btn grey darken-4"
+              data-tooltip="."
               id="dot"
               onclick="decimal()"
             >
@@ -175,7 +217,8 @@
             </div>
           </div>
           <div
-            class="tall btn blue-grey darken-4 col s2"
+            class="fourth-tooltip tall btn blue-grey darken-4 col s2"
+            data-tooltip="Enter"
             id="equals"
             onclick="equation()"
           >
@@ -202,6 +245,29 @@
     </div>
     <script src="script.js"></script>
     <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('.first-tooltip').tooltip({
+          enterDelay: 800,
+          position: 'left'
+        });
+        $('.second-tooltip').tooltip({
+          enterDelay: 800,
+          position: 'left',
+          margin: 55
+        });
+        $('.third-tooltip').tooltip({
+          enterDelay: 800,
+          position: 'right',
+          margin: 55
+        });
+        $('.fourth-tooltip').tooltip({
+          enterDelay: 800,
+          position: 'right'
+        });
+      });
+    </script>
   </body>
 </html>

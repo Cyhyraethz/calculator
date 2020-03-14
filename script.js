@@ -1,5 +1,3 @@
-// To do: add calculator button tooltips with keyboard shortcuts
-// To do: add a significant delay to calculator button tooltips
 const history = document.getElementById('history');
 const total = document.getElementById('total');
 
@@ -239,7 +237,7 @@ window.addEventListener('keydown', e => {
     btn.classList.add('active');
     equation();
   } else if (e.keyCode === 46) {
-    const btn = document.getElementById('del');
+    const btn = document.getElementById('reset');
     btn.style.zIndex = 5;
     btn.classList.add('active');
     clearAll();
