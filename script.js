@@ -245,8 +245,8 @@ window.addEventListener('keydown', e => {
   }
 });
 
-document.querySelectorAll('.btn').forEach(btn =>
+document.querySelectorAll('.btn').forEach(btn => {
   btn.addEventListener('transitionend', e => {
     btn.classList.remove('active');
-  })
-);
+  });
+});
